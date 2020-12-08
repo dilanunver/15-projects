@@ -76,9 +76,32 @@ const menu = [
 
 const sectionCenter = document.querySelector('.section-center'); //selected the parent my item
 
+const filterBtns = document.querySelectorAll('.filter-btn')
+
+// load items 
 window.addEventListener('DOMContentLoaded', function () {
     displayMenuItems(menu);
 });
+
+// filter items
+filterBtns.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+        const category = e.currentTarget.dataset.id; // when it is clicked one of category, you can see it on console. eg. breakfast, or all
+        const menuCategory = menu.filter(function(menuItem){
+           // console.log(menuItem);
+           // console.log(menuItem.category);
+           if(menuItem.category === category){
+               return menuItem;
+           }
+        });
+    //  console.log(menuCategory);
+    if (category === 'all'){
+        displayMenuItems(menu);
+    } else {
+        displayMenuItems(menuCategory);
+    }
+    })
+})
 
 function displayMenuItems(menuItems) {
     let displayMenu = menuItems.map(function (item) {
