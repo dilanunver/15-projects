@@ -72,9 +72,17 @@ const menu = [
         img: "./images/image-9.jpeg",
         desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
     },
+    {
+        id: 10,
+        title: "steak dinner",
+        category: "dinner",
+        price: 36.99,
+        img: "./images/image-10.jpeg",
+        desc: `skateboard fam synth authentic semiotics. Live-edge lyft af, edison bulb yuccie crucifix microdosing.`,
+    },
 ];
 
-const sectionCenter = document.querySelector('.section-center'); //selected the parent my item
+/* const sectionCenter = document.querySelector('.section-center'); //selected the parent my item
 
 const filterBtns = document.querySelectorAll('.filter-btn')
 
@@ -124,5 +132,59 @@ function displayMenuItems(menuItems) {
     displayMenu = displayMenu.join('');
     sectionCenter.innerHTML = displayMenu;
 }
-    //console.log(displayMenu); // there is an array consist of my menu features
+    //console.log(displayMenu); // there is an array consist of my menu features */
 
+// get only unique categories - hardest one
+// iterate over categories return buttons
+// make sure to select buttons when they are available
+
+
+    const sectionCenter = document.querySelector('.section-center');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    // load items
+    window.addEventListener('DOMContentLoaded', function(){
+             displayMenuItems(menu)
+    });
+
+    //filter items
+    filterBtns.forEach(function(btn){
+        btn.addEventListener('click', function(e){
+            const category = e.currentTarget.dataset.id;
+            const menuCategory = menu.filter(function(menuItem){
+             //  console.log(menuItem) // shows the Object like in the item
+             // console.log(menuItem.category) // shows the categories like breakfast, lunch etc.
+             if(menuItem.category === category){
+                // console.log(menuItem) // categories beloging to your chose
+                return menuItem;       
+            }  
+            });
+            if (category === 'all') {
+                displayMenuItems(menu)
+            } else {
+                displayMenuItems(menuCategory); //???
+            }
+            console.log(menuCategory)
+        })
+    })
+
+
+    function displayMenuItems(menuItems){
+        let displayMenu = menuItems.map(function(item){
+            // console.log(item) // shows the Object
+           return `<article class="menu-item">
+           <img src=${item.img} class="photo" alt=${item.title}>
+           <div class="item-info">
+               <header>
+                   <h4>${item.title}</h4>
+                   <h4 class="price">$${item.price}</h4>
+               </header>
+               <p class="item-text">
+                  ${item.desc}
+               </p>
+           </div>
+       </article>`   
+        });
+        displayMenu = displayMenu.join('')
+        sectionCenter.innerHTML = displayMenu
+        // console.log(displayMenu); shows the array , map function needs to return  
+    }
