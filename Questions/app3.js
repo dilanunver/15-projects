@@ -4,8 +4,8 @@ const questions = document.querySelectorAll('.question')
 // then we should walk around the three question. for that reason, we should set forEach func. 
 
 questions.forEach(function(question){
-    const btns = question.querySelector('.question-btn')
-    btns.addEventListener('click', function(){
+    const btn = question.querySelector('.question-btn')
+    btn.addEventListener('click', function(){
         questions.forEach(function(item){
             console.log(item)
             if(item !== question){

@@ -139,39 +139,31 @@ function displayMenuItems(menuItems) {
 // make sure to select buttons when they are available
 
 
-    const sectionCenter = document.querySelector('.section-center');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    // load items
-    window.addEventListener('DOMContentLoaded', function(){
-             displayMenuItems(menu)
-    });
-
-    //filter items
-    filterBtns.forEach(function(btn){
-        btn.addEventListener('click', function(e){
-            const category = e.currentTarget.dataset.id;
-            const menuCategory = menu.filter(function(menuItem){
-             //  console.log(menuItem) // shows the Object like in the item
-             // console.log(menuItem.category) // shows the categories like breakfast, lunch etc.
-             if(menuItem.category === category){
-                // console.log(menuItem) // categories beloging to your chose
-                return menuItem;       
-            }  
-            });
-            if (category === 'all') {
-                displayMenuItems(menu)
-            } else {
-                displayMenuItems(menuCategory); //???
-            }
-            console.log(menuCategory)
-        })
-    })
+const sectionCenter = document.querySelector('.section-center');
+const container = document.querySelector('.btn-container');
 
 
-    function displayMenuItems(menuItems){
-        let displayMenu = menuItems.map(function(item){
+
+// load items
+window.addEventListener('DOMContentLoaded', function () {
+    displayMenuItems(menu)
+    displayMenuButtons()
+     
+});
+
+/* values = ['all', 'breakfast', 'luch']
+item  =  {
+    id: 2,
+    title: "diner double",
+    category: "lunch",
+    price: 13.99,
+    img: "./images/image-2.jpeg",
+    desc: `vaporware iPhone mumblecore selvage raw denim slow-carb leggings gochujang helvetica man braid jianbing. Marfa thundercats `,
+}, */
+    function displayMenuItems(menuItems) {
+        let displayMenu = menuItems.map(function callback(item) {
             // console.log(item) // shows the Object
-           return `<article class="menu-item">
+            return `<article class="menu-item">
            <img src=${item.img} class="photo" alt=${item.title}>
            <div class="item-info">
                <header>
@@ -182,9 +174,48 @@ function displayMenuItems(menuItems) {
                   ${item.desc}
                </p>
            </div>
-       </article>`   
+       </article>`
         });
         displayMenu = displayMenu.join('')
         sectionCenter.innerHTML = displayMenu
         // console.log(displayMenu); shows the array , map function needs to return  
     }
+function displayMenuButtons () {
+    const categories = menu.reduce(function(values, item){
+        if(!values.includes(item.category)) {
+           values.push(item.category);
+        }
+        return values;
+    }, 
+    ['all']
+    );
+ // console.log(categories)
+ const categoryBtns = categories.map(function(category){
+     return `<button class="filter-btn" 
+     type="button" data-id=${category} >${category}</button>
+     `
+ }).join("")
+// console.log(categoryBtns)
+container.innerHTML = categoryBtns; 
+const filterBtns = document.querySelectorAll('.filter-btn');
+//filter items
+filterBtns.forEach(function (btn) {
+   btn.addEventListener('click', function (e) {
+       const category = e.currentTarget.dataset.id;
+       const menuCategory = menu.filter(function (menuItem) {
+           //  console.log(menuItem) // shows the Object like in the item
+           // console.log(menuItem.category) // shows the categories like breakfast, lunch etc.
+           if (menuItem.category === category) {
+               // console.log(menuItem) // categories beloging to your chose
+               return menuItem;
+           }
+       });
+       //console.log(menuCategory)
+       if (category === 'all') {
+           displayMenuItems(menu)
+       } else {
+           displayMenuItems(menuCategory); 
+       } 
+     });
+  });
+}
