@@ -95,8 +95,8 @@ window.addEventListener('DOMContentLoaded', function(){
       
 });
 function displayMenuButtons(){
-    const categories = menu.reduce(function(values, item){
-        if(!values.includes(item.category)){
+    const categories = menu.reduce(function(values, item){ // values = ['all], item = (9) [{...}]
+        if(!values.includes(item.category)){ 
             values.push(item.category);
         };
         return values;
