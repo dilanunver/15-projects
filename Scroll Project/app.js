@@ -14,9 +14,9 @@ const links = document.querySelector('.links');
 navToggle.addEventListener('click', function(){
     // linksContainer.classList.toggle('show-links');
     const containerHeight = linksContainer.getBoundingClientRect().height;
-    console.log(containerHeight) // 0
+   // console.log(containerHeight) // 0
     const linksHeight = links.getBoundingClientRect().height;
-    console.log(linksHeight) // 200
+   // console.log(linksHeight) // 200
 
     if (containerHeight === 0){
         linksContainer.style.height = `${linksHeight}px`;
@@ -31,7 +31,8 @@ const topLink = document.querySelector('.top-link')
 window.addEventListener('scroll', function(){
    const scrollHeight = window.pageYOffset;
    const navHeight = navbar.getBoundingClientRect().height;
-  // console.log(navHeight);
+
+  console.log(navHeight);
   if (scrollHeight > navHeight) {
       navbar.classList.add("fixed-nav")
   } else {
@@ -57,7 +58,24 @@ scrollLinks.forEach(function(link){
        // navigate to specific spot
        const id = e.currentTarget.getAttribute("href").slice(1);
        const element = document.getElementById(id);
-       let position = element.offsetTop;
+
+       // calculate the heights 
+       const navHeight = navbar.getBoundingClientRect().height;
+       // console.log(navHeight) => 282
+       const containerHeight = linksContainer.getBoundingClientRect().height;
+      // console.log(containerHeight)
+       const fixedNav = navbar.classList.contains("fixed-nav");
+       // console.log(fixedNav)
+       let position = element.offsetTop - navHeight;
+            // position = element.offsetTop => home: 0, about: 821 etc.
+           // console.log(position) home: 0 - 282, about: 821 - 282 etc.
+       if (!fixedNav){
+           position = position - navHeight;
+       }
+
+       if (navHeight > 82) {
+           position = position + containerHeight;
+       }
        window.scrollTo({
            left: 0,
            top: position,
