@@ -1,0 +1,2 @@
+this is a video from dcode youtube channel that I follow while learning and practicing javaScript - Create tabs with HTML, CSS and JavaScript! - Web Design Tutorial
+- https://www.youtube.com/watch?v=Ay93z3mZuh8 -

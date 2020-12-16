@@ -1,0 +1,2 @@
+this is a video from Codingflag youtube channel that I follow while learning and practicing javaScript - How to Create Animated Tabs with Indicator using HTML, CSS & JavaScript
+- https://www.youtube.com/watch?v=mBaMq1DphRs -
