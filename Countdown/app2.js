@@ -26,22 +26,31 @@ const giveaway = document.querySelector('.giveaway');
 const deadline = document.querySelector('.deadline');
 const items = document.querySelectorAll('.deadline-format h4')
 
+let tarih = new Date();
+let yil = tarih.getFullYear();
+let ay = tarih.getMonth();
+let gun = tarih.getDate();
+let hour = tarih.getHours()
+let min = tarih.getMinutes()
 
-let anyDate = new Date(2021, 2, 12, 10, 19, 55,23);
-let anyYear = anyDate.getFullYear();
+const letfDay = new Date(yil, ay, gun + 22, 15, 45, 22)
+
+
+//let anyDate = new Date(2021, 2, 12, 10, 19, 55,23);
+/* let anyYear = anyDate.getFullYear();
 let anyDay = anyDate.getDate();
 let hour = anyDate.getHours();
-let min = anyDate.getMinutes();
+let min = anyDate.getMinutes(); */
 // let sec = anyDate.getSeconds(); no need for now
 
-const weekday = weekdays[anyDate.getDay()]
-const month = months[anyDate.getMonth()]
+let weekday = weekdays[letfDay.getDay()]
+const month = months[letfDay.getMonth()]
 
-giveaway.textContent = `giveaway ends on ${weekday}, ${anyDay}, ${month}, ${anyYear}, ${hour}:${min}am`
+giveaway.textContent = `giveaway ends on ${weekday}, ${gun}, ${month}, ${yil}, ${hour}:${min}am`
 
 // arrange the deadline 
 
-const now = anyDate.getTime();
+const now = letfDay.getTime();
 
 function howManyTimes(){
     const futureTime = new Date().getTime();
