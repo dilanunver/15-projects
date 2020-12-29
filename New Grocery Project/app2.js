@@ -35,6 +35,11 @@ function addItem(e){
             <i class="fas fa-trash"></i>
         </button>
         </div>`
+        const deleteBtn = element.querySelector('.delete-btn');
+        const editBtn = element.querySelector('.edit-btn');
+        deleteBtn.addEventListener('click', deleteItems);
+        editBtn.addEventListener('click', editItems);
+        
         list.appendChild(element);
         container.classList.add('show-container');
         displayAlert('added item to the list', 'success');
@@ -42,7 +47,10 @@ function addItem(e){
 
     }
     else if (value && editFlag){
-        console.log('editing')
+        editElement.innerHTML = value;
+        displayAlert('value changed', 'success');
+        setBackToDefault();
+
     }
     else{
         displayAlert('please enter a valid item', 'danger')
@@ -74,4 +82,21 @@ function clearItems(){
         container.classList.remove('show-container');
         displayAlert('items removed!', 'success');
         setBackToDefault();  
+}
+
+function deleteItems(e){
+    const element = e.currentTarget.parentElement.parentElement;
+    list.removeChild(element);
+    if(list.children.length === 0){
+        container.classList.remove('show-container'); 
+    }
+    displayAlert('items deleted', 'danger');
+    setBackToDefault();
+}
+
+function editItems (e){
+    editElement = e.currentTarget.parentElement.previousElementSibling;
+    grocery.value = editElement.innerHTML;
+    editFlag = true;
+    submitBtn.textContent = 'edit';
 }
